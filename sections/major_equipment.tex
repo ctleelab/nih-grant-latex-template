@@ -1,0 +1,32 @@
+%---------------------------------
+% Chktex Suppressions
+%---------------------------------
+% Suppress 2: Using ~ spaces
+% chktex-file 2
+
+% Suppress 3: You should enclose the previous parenthesis with `{}'.
+% chktex-file 3
+
+% Suppress 6: No italic correction (`\/') found.
+% chktex-file 6
+
+% Suppress 8: Wrong length of dash may have been used.
+% chktex-file 8
+
+% Suppress 13: Intersentence spacing (`\@') should perhaps be used.
+% //chktex-file 13
+
+
+% cspell:disable
+\documentclass[../main.tex]{subfiles}
+\graphicspath{{\subfix{../Figures/}}}   
+% cspell:enable
+
+\begin{document}
+\pagenumbering{gobble}
+
+\section{Equipment} 
+
+\lipsum
+
+\end{document}

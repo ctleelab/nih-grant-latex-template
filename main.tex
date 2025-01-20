@@ -1,0 +1,408 @@
+%---------------------------------
+% Chktex Suppressions
+%---------------------------------
+% Suppress 2: Using ~ spaces
+% chktex-file 2
+
+% Suppress 3: You should enclose the previous parenthesis with `{}'.
+% chktex-file 3
+
+% Suppress 6: No italic correction (`\/') found.
+% chktex-file 6
+
+% Suppress 8: Wrong length of dash may have been used.
+% chktex-file 8
+
+% Suppress 13: Intersentence spacing (`\@') should perhaps be used.
+% //chktex-file 13
+
+
+% cspell:disable
+\documentclass[11pt]{article}
+
+
+
+%---------------------------------
+% Layouts and fonts
+%---------------------------------
+\usepackage[margin=0.5in]{geometry}
+% \setlength{\parindent}{1.2em}
+% \setlength{\parskip}{\baselineskip}
+
+% UNCOMMENT BELOW FOR ATYPICAL LINE SPACING
+% \usepackage{setspace}
+% \onehalfspacing
+
+
+\usepackage{fontspec}
+\setmainfont{Arial}
+
+
+\usepackage{mathtools} % should load amsmath
+\usepackage{amssymb}
+\usepackage{amsfonts}
+
+\usepackage{microtype} % microtypographical extensions for better document kerning
+\usepackage{ulem} % to strikethrough text with the command \sout{text to be striked} and \ul for underline
+\usepackage{xspace} % for proper spacing after commands
+\usepackage[dvipsnames, table]{xcolor}
+
+\usepackage{booktabs}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage[shortlabels]{enumitem}
+% \setlist{nosep}
+\setlist{leftmargin=2em,labelsep=0.5em,nosep}
+\setlist[itemize]{label=-}
+%=================================
+
+
+
+%---------------------------------
+% Figures and captions
+%---------------------------------
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{framed}
+\setlength{\FrameSep}{2pt}
+\setlength{\OuterFrameSep}{0pt}
+
+\usepackage{wrapfig}
+\setlength{\floatsep}{0pt plus 1.0pt minus 1.0pt}
+\setlength{\textfloatsep}{1pt plus 1.0pt minus 1.0pt}%
+\setlength{\intextsep}{0pt plus 1.0pt minus 1.0pt}%
+\setlength{\columnsep}{8pt}%
+
+\usepackage{sidecap}
+\usepackage{subcaption}
+\usepackage[labelfont={bf,small}, textfont=small, skip=1pt]{caption}
+% \captionsetup[subfloat]{position=top,singlelinecheck=false,labelfont={normalsize,sf}, labelformat=simple,listofformat=subparens,aboveskip=0pt,parskip=0pt,farskip=-5pt,captionskip=0pt}
+
+
+
+%---------------------------------
+% Links and bookmarks
+%---------------------------------
+\PassOptionsToPackage{hyphens}{url}\usepackage[hidelinks, draft,colorlinks=false]{hyperref}
+\usepackage{bookmark}
+\usepackage[all]{hypcap}
+
+\usepackage[capitalize]{cleveref}
+\newcommand{\crefrangeconjunction}{--}
+
+\usepackage{pdfpages}
+
+
+%---------------------------------
+% Fancy header
+%---------------------------------
+% \usepackage{lastpage}
+% \usepackage{fancyhdr}
+% \pagestyle{fancy}
+% \fancyhf{}
+% \setlength{\headheight}{13.6pt}
+% \renewcommand{\headrulewidth}{0.5pt}
+% \renewcommand{\footrulewidth}{0pt}
+
+% \rhead{}
+% \lhead{}
+% % \cfoot{\thepage}
+% \rfoot{\thepage/\pageref*{LastPage}}
+
+% \fancypagestyle{simple}{
+%   \fancyhf{}
+%   \renewcommand{\headrulewidth}{0pt}
+%   \rfoot{\thepage/\pageref*{LastPage}}
+% }
+
+
+%---------------------------------
+% Units
+%---------------------------------
+\usepackage{siunitx}
+\DeclareSIUnit\bar{bar}
+\DeclareSIUnit{\molecule}{molecule}
+\DeclareSIUnit{\molecules}{molecule}
+\DeclareSIUnit\molar{\mole\per\cubic\deci\metre}
+\DeclareSIUnit\Molar{M}
+\sisetup{
+  uncertainty-mode = separate,
+  mode = match,
+  propagate-math-font = true,
+  reset-math-version = false,
+  reset-text-family = false,
+  reset-text-series = false,
+  reset-text-shape = false,
+  text-family-to-math = true,
+  text-series-to-math = true,
+  range-phrase = --,
+  list-units = single,
+  range-units = single,
+  group-digits = integer,
+  % group-separator={,},
+  % group-minimum-digits=4
+}
+
+\usepackage[version=4]{mhchem}
+\usepackage{lipsum}
+
+
+%---------------------------------
+% Bibliography
+%---------------------------------
+\usepackage[backend=biber, style=chem-acs, maxbibnames=5, url=false, bibstyle=numeric, autocite=superscript, doi=false]{biblatex} %defernumbers=true
+
+% Check for uncited entries
+\defbibcheck{uncited}{
+  \ifciteseen
+  {\skipentry}
+  {}
+}
+
+\renewcommand\multicitedelim{\addsemicolon\space}
+\addbibresource{refs.bib}
+
+\AtEveryBibitem{\ifentrytype{article}{\clearfield{issn}}{}}
+
+% Formatting overrides
+\DeclareFieldFormat{journaltitle}{\textit{#1}}
+\renewbibmacro{in:}{}
+
+% Modify bib section heading
+\defbibheading{bibliography}[\bibname]{\noindent \textbf{#1}\par}
+\renewcommand*{\bibfont}{\small}
+
+
+% Print biorxiv preprints nicely
+\NewBibliographyString{preprint,preprints}
+\DefineBibliographyStrings{english}{%
+  preprint = {Preprint},
+  preprints = {Preprints}
+}
+
+% Add the biorxiv eprint type
+\DeclareFieldFormat{eprint:biorxiv}{BioRxiv \mathchardef\UrlBreakPenalty=100
+\mathchardef\UrlBigBreakPenalty=100\url{#1}}
+%=================================
+
+
+
+%---------------------------------
+% Set spacing for section headers 
+%---------------------------------
+\usepackage{titlesec}
+
+\renewcommand\thesection{\Alph{section}}
+\renewcommand\thesubsubsection{\thesubsection.\alph{subsubsection}}
+
+%% CUSTOM LENGTH FOR BEFORE (SUB)SECTION VSPACE
+\newlength{\mysecskip}
+\newlength{\myaftersep}
+\setlength{\mysecskip}{0.25ex}
+\setlength{\myaftersep}{1ex}
+
+%%\titlespacing*{command}{left}{before-sep}{after-sep}[right-sep]
+\titlespacing*{\section}{0pt}{4\mysecskip}{\myaftersep}
+\titlespacing*{\subsection}{0pt}{\mysecskip}{\myaftersep}
+\titlespacing*{\subsubsection}{0pt}{0ex}{\myaftersep}
+\titlespacing*{\paragraph}{0pt}{0ex}{1em}
+
+%\titleformat{command}[shape]{format}{label}{sep}{before-code}[after-code]
+% \titleformat{\section}[runin]{\normalfont\normalsize\bfseries}{\thesection}{0.75em}{}
+\titleformat{\section}[hang]{\normalfont\normalsize\bfseries}{\thesection}{0.75em}{}
+\titleformat{\subsection}[runin]{\normalfont\normalsize\itshape\bfseries}{\thesubsection}{0.75em}{}
+\titleformat{\subsubsection}[runin]{\normalfont\normalsize\itshape}{\thesubsubsection}{0.75em}{}
+ \titleformat{\paragraph}[runin]{\normalfont\normalsize\itshape}{\theparagraph}{0.75em}{}
+
+\setcounter{secnumdepth}{6}
+
+\newenvironment{tightcenter}{%
+  \setlength\topsep{0pt}
+  \setlength\parskip{0pt}
+  \begin{center}
+}{%
+  \end{center}
+}
+
+
+
+%---------------------------------
+% Custom macros
+%---------------------------------
+\newcommand{\needref}[0]{\textcolor{red}{[REFS]}\xspace}
+\newcommand{\thinsim}{{\raise.17ex\hbox{\(\scriptstyle\mathtt{\sim}\)}}}
+
+\newcommand{\Red}[1]{{\color{red} #1}\xspace}
+\newcommand{\Blue}[1]{{\color{blue} #1}\xspace}
+
+
+\newlist{todolist}{itemize}{2}
+\setlist[todolist]{label=$\square$}
+
+% \newcommand{\cbox} {
+% $\text{\rlap{\Red{$\checkmark$}}}\square$
+% }
+
+\newcommand{\done}{\rlap{$\square$}{\raisebox{2pt}{\large\hspace{1pt}$\checkmark$}}}
+\newcommand{\inprogress}{\rlap{$\square$}{\Large\hspace{2pt}$\cdot$}}
+
+\newcommand{\ubox} {
+$\square$
+}
+
+% ENVIRONMENT FOR CHANGING PARAGRAPH INDENT LOCALLY
+\newlength\mystoreparindent
+\newenvironment{myparindent}[1]{%
+  \setlength{\mystoreparindent}{\the\parindent}
+  \setlength{\parindent}{#1}
+}{%
+  \setlength{\parindent}{\mystoreparindent}
+}
+%=================================
+
+
+% cspell:enable
+
+%---------------------------------
+% Acronyms and glossary
+%---------------------------------
+% Learn more here: https://www.overleaf.com/learn/latex/glossaries
+% \usepackage[acronym, nonumberlist, nopostdot, nogroupskip, numberedsection=false]{glossaries}
+% \setlength{\glsdescwidth}{0.8\textwidth}
+\usepackage{glossaries-extra}
+\setabbreviationstyle[acronym]{long-short}
+% NO HYPERLINKS!
+\glsdisablehyper
+
+% \glssetcategoryattribute{acronym}{nohyperfirst}{true}
+% \renewcommand*{\glsdonohyperlink}[2]{%
+% {\glsxtrprotectlinks \glsdohypertarget{#1}{#2}}}
+% \makeglossaries{}
+
+\newacronym[shortplural={ROS}, longplural={reactive oxygen species}]{ROS}{ROS}{reactive oxygen species}
+
+
+%---------------------------------
+% Proposal metadata... 
+%---------------------------------
+\newcommand{\ProposalTitle}{\lipsum[1]}
+
+\newcommand{\AimOneText}{\lipsum[3]}
+
+\newcommand{\AimTwoText}{\lipsum[8]}
+
+\newcommand{\AimThreeText}{\lipsum[4]}
+
+
+
+\usepackage{subfiles}
+
+\begin{document}
+\pagenumbering{gobble}
+
+\section*{PLANNING}
+
+\begin{todolist}
+  \item[\done] Cover Letter (incl list of referees)
+  \item[\done] Letters of Reference:
+  \begin{todolist}
+    \item[\done] XYZ
+  \end{todolist}
+  \item[\inprogress] Introduction to Resubmission (1 pg)
+  \item Project Summary/abstract (30 lines)
+  \item Project Narrative (2-3 sentences)
+  \item Bibliography/Refs (no limit)
+  \item Facilities and Other Resources (no limit)
+  \item Equipment (no limit)
+  \item Biosketches (5 pages per person):
+  \begin{todolist}
+    \item XYZ
+  \end{todolist}
+  \item Current and Pending Support for Mentor(s):
+  \begin{todolist}
+    \item XTZ
+  \end{todolist}
+  \item Budget (R\&R Budget Form)
+  \item Budget Justification (no limit)
+  \item Specific Aims (1 pg)
+  \item Research Strategy (12 pg)
+  \item Plans and Statements by Mentor, Co-mentor (6 pages)
+  \item Letters of Support (6 pages TOTAL):
+  \begin{todolist}
+    \item XYZ
+  \end{todolist}
+  \item Description of Institutional Environment (1 page)
+  \item Institutional Commitment signed by Dept chair (1 page)
+  \item Vertebrate Animals/Human Subjects (if applicable) (no limit)
+  \item Select Agent Research (if applicable)
+  \item Consortium Contractual Arrangements (if applicable)
+  \item Resource Sharing Plan
+  \item Data Management and Sharing Plan
+  \item Authentication of key biological resources (1 page)
+  \item Assignment Request Form
+\end{todolist}
+
+\newpage
+\section*{\Red{HELPFUL LINKS}}
+
+\begin{itemize}
+  \item FOA \url{https://grants.nih.gov/}
+\end{itemize}
+
+\newpage
+Page intentionally blank
+
+% \newpage
+% \subfile{sections/introduction_to_resubmission.tex}
+
+\newpage
+\subfile{sections/abstract.tex}
+
+\newpage
+% \includepdf[pages=-]{biosketches/biosketch.pdf}
+
+% \includepdf[pages=-]{sections/OtherSupport.pdf}
+
+\newpage
+\subfile{sections/budget_justification.tex}
+
+\newpage
+\subfile{sections/facilities.tex}
+
+\newpage
+\subfile{sections/major_equipment.tex}
+
+\newpage
+\subfile{sections/specific_aims.tex}
+
+\newpage
+\subfile{sections/research_strategy.tex}
+
+
+\newpage
+\subfile{sections/introduction_to_resubmission.tex}
+
+\newpage
+\subfile{sections/letters_of_support.tex}
+
+\newpage
+\subfile{sections/institutional_environment.tex}
+
+\newpage
+\subfile{sections/resource_sharing_plan.tex}
+
+\newpage
+\subfile{sections/data_management_sharing_plan.tex}
+
+\newpage
+\normalem
+\printbibliography[title={References Cited}]
+\ULforem
+
+% UNCOMMENT TO PRINT UNCITED REFERENCES IN BIB FILE
+% \newpage
+% \normalem
+% \nocite{*}
+% \Red{\printbibliography[check=uncited]}
+% \ULforem
+\end{document}
