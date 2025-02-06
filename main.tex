@@ -150,7 +150,7 @@
 %---------------------------------
 % Bibliography
 %---------------------------------
-\usepackage[backend=biber, style=chem-acs, maxbibnames=5, url=false, bibstyle=numeric, autocite=superscript, doi=false]{biblatex} %defernumbers=true
+\usepackage[backend=biber, style=chem-acs-ctl, maxbibnames=5, url=false, autocite=superscript, doi=true, eprint=true]{biblatex} %defernumbers=true
 
 % Check for uncited entries
 \defbibcheck{uncited}{
@@ -164,25 +164,10 @@
 
 \AtEveryBibitem{\ifentrytype{article}{\clearfield{issn}}{}}
 
-% Formatting overrides
-\DeclareFieldFormat{journaltitle}{\textit{#1}}
-\renewbibmacro{in:}{}
 
 % Modify bib section heading
 \defbibheading{bibliography}[\bibname]{\noindent \textbf{#1}\par}
 \renewcommand*{\bibfont}{\small}
-
-
-% Print biorxiv preprints nicely
-\NewBibliographyString{preprint,preprints}
-\DefineBibliographyStrings{english}{%
-  preprint = {Preprint},
-  preprints = {Preprints}
-}
-
-% Add the biorxiv eprint type
-\DeclareFieldFormat{eprint:biorxiv}{BioRxiv \mathchardef\UrlBreakPenalty=100
-\mathchardef\UrlBigBreakPenalty=100\url{#1}}
 %=================================
 
 
@@ -302,6 +287,13 @@ $\square$
 
 \section*{PLANNING}
 
+\begin{itemize}
+  \item FOA \url{https://grants.nih.gov/}
+  \item Unit test \autocite{HuEtAl2023,MooreEtAl2024,RamakrishnanEtAl2015,MaxianEtAl2021a,WinterEtAl2024,WurthnerEtAl2022,PedersenEtAl2024}
+\end{itemize}
+
+\vspace{2cm}
+
 \begin{todolist}
   \item[\done] Cover Letter (incl list of referees)
   \item[\done] Letters of Reference:
@@ -342,12 +334,6 @@ $\square$
   \item Assignment Request Form
 \end{todolist}
 
-\newpage
-\section*{\Red{HELPFUL LINKS}}
-
-\begin{itemize}
-  \item FOA \url{https://grants.nih.gov/}
-\end{itemize}
 
 \newpage
 Page intentionally blank
