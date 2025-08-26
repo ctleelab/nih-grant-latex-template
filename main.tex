@@ -177,6 +177,7 @@
 %---------------------------------
 \usepackage{titlesec}
 
+\renewcommand\thepart{}
 \renewcommand\thesection{\Alph{section}}
 \renewcommand\thesubsubsection{\thesubsection.\alph{subsubsection}}
 
@@ -187,6 +188,7 @@
 \setlength{\myaftersep}{1ex}
 
 %%\titlespacing*{command}{left}{before-sep}{after-sep}[right-sep]
+\titlespacing*{\part}{0pt}{4\mysecskip}{\myaftersep}
 \titlespacing*{\section}{0pt}{4\mysecskip}{\myaftersep}
 \titlespacing*{\subsection}{0pt}{\mysecskip}{\myaftersep}
 \titlespacing*{\subsubsection}{0pt}{0ex}{\myaftersep}
@@ -194,6 +196,7 @@
 
 %\titleformat{command}[shape]{format}{label}{sep}{before-code}[after-code]
 % \titleformat{\section}[runin]{\normalfont\normalsize\bfseries}{\thesection}{0.75em}{}
+\titleformat{\part}[hang]{\normalfont\normalsize\bfseries}{\thepart}{0em}{}
 \titleformat{\section}[hang]{\normalfont\normalsize\bfseries}{\thesection}{0.75em}{}
 \titleformat{\subsection}[runin]{\normalfont\normalsize\itshape\bfseries}{\thesubsection}{0.75em}{}
 \titleformat{\subsubsection}[runin]{\normalfont\normalsize\itshape\bfseries}{\thesubsubsection}{0.75em}{}
@@ -301,7 +304,7 @@ Page intentionally blank
 % \subfile{sections/introduction_to_resubmission.tex}
 
 \newpage
-\subfile{sections/abstract.tex}
+\subfile{sections/project_summary.tex}
 
 \newpage
 % \includepdf[pages=-]{biosketches/biosketch.pdf}
