@@ -43,7 +43,7 @@
 \usepackage{amsfonts}
 
 \usepackage{microtype} % microtypographical extensions for better document kerning
-\usepackage{ulem} % to strikethrough text with the command \sout{text to be striked} and \ul for underline
+\usepackage{lua-ul} % \underLine, \highLight, and \strikeThrough. 
 \usepackage{xspace} % for proper spacing after commands
 \usepackage[dvipsnames, table]{xcolor}
 
@@ -83,7 +83,7 @@
 %---------------------------------
 % Links and bookmarks
 %---------------------------------
-\PassOptionsToPackage{hyphens}{url}\usepackage[hidelinks, draft,colorlinks=false]{hyperref}
+\PassOptionsToPackage{hyphens}{url}\usepackage[hidelinks, draft,colorlinks=false, unicode]{hyperref}
 \usepackage{bookmark}
 \usepackage[all]{hypcap}
 
@@ -246,6 +246,35 @@ $\square$
 }{%
   \setlength{\parindent}{\mystoreparindent}
 }
+
+% Split mini page for cover pages
+\newcommand{\splitminipage}[2]{\begin{minipage}[t][][t]{0.25\linewidth}
+#1
+\end{minipage}
+\hfill
+\begin{minipage}[t][][t]{0.74\linewidth}
+#2
+\end{minipage}}
+
+
+% Hack to introduce custom labels for sections
+% Maybe better to define custom counters and use those instead
+% \customlabel{sec:task}{[task][1][1]1.1}{Task 1.1}
+\newcommand{\customlabel}[3]{%
+    \protected@write\@auxout{}%
+        {\string\newlabel{#1}{{#3}{\thepage}{#2}{#1}{}}}%
+    \@bsphack%
+      \edef\@tempa{{page}{\the\c@page}}%
+      \setcounter{page}{1}%
+      \edef\@tempb{\thepage}%
+      \expandafter\setcounter\@tempa%
+      \protected@write\@auxout{}%
+        {\string\newlabel{#1@cref}{{#2}%
+        {[\@tempb][\arabic{page}][\cref@result]\thepage}{}{}{}}}%
+    \@esphack%
+    \hypertarget{#1}{}%
+}
+\makeatother
 %=================================
 
 
@@ -273,13 +302,13 @@ $\square$
 %---------------------------------
 % Proposal metadata... 
 %---------------------------------
-\newcommand{\ProposalTitle}{\lipsum[1]}
+\newcommand{\ProposalTitle}{WORKING TITLE}
 
-\newcommand{\AimOneText}{\lipsum[3]}
+\newcommand{\AimOneText}{AIM 1}
 
-\newcommand{\AimTwoText}{\lipsum[8]}
+\newcommand{\AimTwoText}{AIM 2}
 
-\newcommand{\AimThreeText}{\lipsum[4]}
+\newcommand{\AimThreeText}{AIM 3}
 
 
 \usepackage[smartEllipses]{markdown}
@@ -343,14 +372,10 @@ Page intentionally blank
 \subfile{sections/data_management_sharing_plan.tex}
 
 \newpage
-\normalem
 \printbibliography[title={References Cited}]
-\ULforem
 
 % UNCOMMENT TO PRINT UNCITED REFERENCES IN BIB FILE
 % \newpage
-% \normalem
 % \nocite{*}
 % \Red{\printbibliography[check=uncited]}
-% \ULforem
 \end{document}
