@@ -18,7 +18,15 @@
 
 
 % cspell:disable
+% \DocumentMetadata{
+%   pdfversion=2.0,
+%   pdfstandard=ua-2,
+%   language=en,
+%   tagging=on,
+%   % uncompress,
+% }
 \documentclass[11pt]{article}
+\usepackage{subfiles}
 
 
 
@@ -83,7 +91,7 @@
 %---------------------------------
 % Links and bookmarks
 %---------------------------------
-\PassOptionsToPackage{hyphens}{url}\usepackage[hidelinks, draft,colorlinks=false, unicode]{hyperref}
+\PassOptionsToPackage{hyphens}{url}\usepackage[hidelinks, draft,colorlinks=false]{hyperref}
 \usepackage{bookmark}
 \usepackage[all]{hypcap}
 
@@ -144,6 +152,10 @@
 }
 
 \usepackage[version=4]{mhchem}
+
+
+% With LuaTeX, lipsum requires babel to get proper hyphenation
+\usepackage[base]{babel}
 \usepackage{lipsum}
 
 
@@ -160,7 +172,7 @@
 }
 
 \renewcommand\multicitedelim{\addsemicolon\space}
-\addbibresource{refs.bib}
+\addbibresource{\subfix{refs.bib}}
 
 \AtEveryBibitem{\ifentrytype{article}{\clearfield{issn}}{}}
 
@@ -278,6 +290,7 @@ $\square$
 %=================================
 
 
+\usepackage[smartEllipses]{markdown}
 % cspell:enable
 
 %---------------------------------
@@ -311,8 +324,7 @@ $\square$
 \newcommand{\AimThreeText}{AIM 3}
 
 
-\usepackage[smartEllipses]{markdown}
-\usepackage{subfiles}
+
 
 \begin{document}
 \pagenumbering{gobble}
