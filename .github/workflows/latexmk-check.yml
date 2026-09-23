@@ -1,0 +1,77 @@
+name: Build latex document and test 
+
+on:
+  # Runs on pushes targeting the default branch
+  push:
+    # branches: ["main"]
+    tags:
+      - 'v[0-9].[0-9]+.[0-9]+*'
+
+  pull_request:
+    branches:
+      - main
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+# permissions:
+#   contents: write
+
+jobs:
+  # Build job
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - uses: xu-cheng/latex-action@v4
+        with:
+          root_file: main.tex
+          latexmk_use_lualatex: true
+          pre_compile: |
+            apk add msttcorefonts-installer fontconfig
+            update-ms-fonts
+            fc-cache -f
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: artifact
+          path: main.pdf
+
+  # Test build.sh on main.tex and each standalone subfile in sections/
+  build-script:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - uses: xu-cheng/latex-action@v4
+        with:
+          root_file: |
+            main.tex
+            sections/*.tex
+          compiler: ./build.sh
+          args: --rebuild
+          continue_on_error: true
+          pre_compile: |
+            apk add msttcorefonts-installer fontconfig
+            update-ms-fonts
+            fc-cache -f
+
+      - name: Upload build.sh artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-script-artifact
+          path: |
+            main-build/main.pdf
+            sections/*-build/*.pdf
+ 
